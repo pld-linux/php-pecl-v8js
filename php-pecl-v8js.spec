@@ -2,20 +2,22 @@
 # Conditional build:
 %bcond_without	tests		# build without tests
 
+%define		rel		1
+%define		gitrev	e2a8186
 %define		php_name	php%{?php_suffix}
 %define		modname	v8js
 Summary:	V8 Javascript Engine for PHP
 Name:		%{php_name}-pecl-%{modname}
 Version:	0.1.5
-Release:	1
+Release:	%{rel}.%{gitrev}
 License:	MIT
 Group:		Development/Languages/PHP
-Source0:	http://pecl.php.net/get/%{modname}-%{version}.tgz
-# Source0-md5:	8bbe41781cd63686df34df9137fc7417
+Source0:	https://github.com/preillyme/v8js/archive/%{gitrev}/%{modname}-%{version}-%{gitrev}.tar.gz
+# Source0-md5:	9faf1b76b2af2ab88102dc123a2a0bf1
 URL:		http://pecl.php.net/package/v8js
-BuildRequires:	%{php_name}-devel
+BuildRequires:	%{php_name}-devel >= 4:5.3.3
 BuildRequires:	rpmbuild(macros) >= 1.666
-BuildRequires:	v8-devel >= 3.17.11
+BuildRequires:	v8-devel >= 3.21.12
 %{?requires_php_extension}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -58,6 +60,6 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc CREDITS EXPERIMENTAL
+%doc README.md LICENSE CREDITS
 %config(noreplace) %verify(not md5 mtime size) %{php_sysconfdir}/conf.d/%{modname}.ini
 %attr(755,root,root) %{php_extensiondir}/%{modname}.so
