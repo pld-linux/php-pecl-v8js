@@ -2,7 +2,7 @@
 # Conditional build:
 %bcond_without	tests		# build without tests
 
-%define		rel		1
+%define		rel		2
 %define		gitrev	e2a8186
 %define		php_name	php%{?php_suffix}
 %define		modname	v8js
@@ -19,6 +19,7 @@ BuildRequires:	%{php_name}-devel >= 4:5.3.3
 BuildRequires:	rpmbuild(macros) >= 1.666
 BuildRequires:	v8-devel >= 3.21.12
 %{?requires_php_extension}
+Provides:	php(%{modname}) = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
